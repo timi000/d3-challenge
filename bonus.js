@@ -64,30 +64,40 @@ function renderCircles(circlesGroup, newXScale, newYScale,chosenXAxis, chosenYAx
         .attr("cx",d=> newXScale(d[chosenXAxis]))
         .attr("cy",d=> newYScale(d[chosenYAxis]))
         return circlesGroup
+        
 }
 
+function renderText(abbrG,newXScale, newYScale,chosenXAxis, chosenYAxis ){
+    abbrG.transition()
+    .duration(1000)
+    .text(d=>d.abbr)
+    .attr("x", d=> newXScale(d[chosenXAxis]))
+    .attr("y", d=>newYScale(d[chosenYAxis]) )
+
+    return abbrG
+}
 function updateToolTip(chosenXAxis, chosenYAxis,circlesGroup){
     var xLabel;
     
     if(chosenXAxis=="poverty") {
-    xLabel="Poverty:"
+    xLabel="Poverty(%):"
     }
     else if (chosenXAxis=="age"){
-    xLabel="Poverty:"
+    xLabel="Age(Median):"
     }
     else{
-    xLabel="Household Income:"
+    xLabel="Household Income (Median):"
     }
 
     var yLabel;
     if(chosenYAxis=="healthcareLow") {
-        yLabel="Healthcare:"
+        yLabel="Healthcare(%):"
     }
     else if (chosenYAxis=="obesityHigh"){
-        yLabel="Obesity:"
+        yLabel="Obesity(%):"
     }
     else{
-        yLabel="Smokers:"
+        yLabel="Smokers(%):"
     }
 
 
@@ -102,10 +112,12 @@ function updateToolTip(chosenXAxis, chosenYAxis,circlesGroup){
     })
     .on("mouseout", d=> {
         toolTip.hide(d)
-
+    })
     return circlesGroup
-})
+
 }
+
+
 
 
 d3.csv("data.csv").then(function(cityData, err){
@@ -146,12 +158,13 @@ var xAxis=chartGroup.append("g")
     .call(bottomAxis);
 
 
-
+var dot = chartGroup.selectAll("circle")
+.data(cityData)
+.enter()
+.append("g")
 
 var radius = 10
-var circlesGroup=  chartGroup.selectAll("circle")
-    .data(cityData)
-    .enter()
+var circlesGroup= dot
     .append("circle")
     .attr("cx", d=> xLinearScale(d[chosenXAxis]) )
     .attr("cy", d=> yLinearScale(d[chosenYAxis]))
@@ -159,16 +172,14 @@ var circlesGroup=  chartGroup.selectAll("circle")
     .classed("stateCircle", true)
     
     
-
-
-
-
-/*circlesGroup.append("text").text(d=>d.abbr)
+var abbrG =dot
+    .append("text")
+    .text(d=>d.abbr)
     .classed("stateText", true)
-    .attr("font-size","5px")
-
+    .attr("font-size","3px")
     .attr("x", d=> xLinearScale(d[chosenXAxis]))
-    .attr("y", d=> yLinearScale(d[chosenYAxis]) );*/
+    .attr("y", d=> yLinearScale(d[chosenYAxis]) )
+    
 
 var labelsXGroup=chartGroup.append("g")
 .attr("transform", `translate(${chartWidth/2},${chartHeight+20})`);
@@ -243,14 +254,36 @@ console.log(value)
        
         xLinearScale=xScale(cityData, chosenXAxis)
         xAxis=renderXAxes(xLinearScale,xAxis)
-        console.log(chosenYAxis)
-        console.log(chosenXAxis)
-        console.log(xLinearScale)
-        console.log(yLinearScale)
-        console.log(circlesGroup)
-        circlesGroup=renderCircles(circlesGroup,xLinearScale,chosenXAxis,yLinearScale,chosenYAxis)
+        
+        circlesGroup=renderCircles(circlesGroup,xLinearScale,yLinearScale,chosenXAxis,chosenYAxis)
+        abbrG =renderText(abbrG,xLinearScale,yLinearScale,chosenXAxis, chosenYAxis )
         
         circlesGroup=updateToolTip(chosenXAxis, chosenYAxis,circlesGroup)
+
+        if (chosenXAxis=="poverty"){
+            povertyLabel.classed("active", true)
+                .classed("inactive", false)
+            ageLabel.classed("active", false)
+                .classed("inactive", true)
+            incomeLabel.classed("active", false)
+                .classed("inactive", true)
+        }
+        if (chosenXAxis=="age"){
+            povertyLabel.classed("active", false)
+                .classed("inactive", true)
+            ageLabel.classed("active", true)
+                .classed("inactive", false)
+            incomeLabel.classed("active", false)
+                .classed("inactive", true)
+        }
+        if (chosenXAxis=="income"){
+            povertyLabel.classed("active", false)
+                .classed("inactive", true)
+            ageLabel.classed("active", false)
+                .classed("inactive", true)
+            incomeLabel.classed("active", true)
+                .classed("inactive", false)
+        }
 
        }
     })
@@ -270,12 +303,41 @@ console.log(yvalue)
         console.log(xLinearScale)
         console.log(yLinearScale)
         console.log(circlesGroup)
-        circlesGroup=renderCircles(circlesGroup,xLinearScale,chosenXAxis,yLinearScale,chosenYAxis)
+        circlesGroup=renderCircles(circlesGroup,xLinearScale,yLinearScale,chosenXAxis,chosenYAxis)
+        abbrG =renderText(abbrG,xLinearScale,yLinearScale,chosenXAxis, chosenYAxis )
         
         circlesGroup=updateToolTip(chosenXAxis, chosenYAxis,circlesGroup)
 
+        if (chosenYAxis=="healthcareLow"){
+            healthcareLabel.classed("active", true)
+                .classed("inactive", false)
+            obesityLabel.classed("active", false)
+                .classed("inactive", true)
+            smokesLabel.classed("active", false)
+                .classed("inactive", true)
+        }
+        if (chosenYAxis=="obesityHigh"){
+            healthcareLabel.classed("active", false)
+                .classed("inactive", true)
+            obesityLabel.classed("active", true)
+                .classed("inactive", false)
+            smokesLabel.classed("active", false)
+                .classed("inactive", true)
+        }
+        if (chosenYAxis=="smokesHigh"){
+            healthcareLabel.classed("active", false)
+                .classed("inactive", true)
+            obesityLabel.classed("active", false)
+                .classed("inactive", true)
+            smokesLabel.classed("active", true)
+                .classed("inactive", false)
+        }
+
        }
     })
+      
 
 
-})
+}).catch(function(error) {
+    console.log(error);})
+  

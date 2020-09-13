@@ -60,7 +60,9 @@ d3.csv("data.csv").then(cityData=>{
     chartGroup.append("g")
     .attr("transform", `translate(0,${chartHeight})`)
     .call(bottomAxis);
-var gdots =  chartGroup.selectAll("dot")
+
+ 
+var gdots =  chartGroup.selectAll("circle")
     .data(cityData)
     .enter().append('g')
 
