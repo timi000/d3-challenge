@@ -1,70 +1,83 @@
-# d3-challenge
-Background
-WAKE UP SHEEPLE! The extra-terrestrial menace has come to Earth and we here at ALIENS-R-REAL have collected all of the eye-witness reports we could to prove it! All we need to do now is put this information online for the world to see and then the matter will finally be put to rest.
-There is just one tiny problem though... our collection is too large to search through manually. Even our most dedicated followers are complaining that they are having trouble locating specific reports in this mess.
-That's why we are hiring you. We need you to write code that will create a table dynamically based upon a dataset we provide. We also need to allow our users to filter the table data for specific values. There's a catch though... we only use pure JavaScript, HTML, and CSS, and D3.js on our web pages. They are the only coding languages which can be trusted.
-You can handle this... right? The planet Earth needs to know what we have found!
+# D3 Homework - Data Journalism and D3
 
-Your Task
+![Newsroom](https://media.giphy.com/media/v2xIous7mnEYg/giphy.gif)
 
-Before You Begin
+## Background
 
+Welcome to the newsroom! You've just accepted a data visualization position for a major metro paper. You're tasked with analyzing the current trends shaping people's lives, as well as creating charts, graphs, and interactive elements to help readers understand your findings.
 
-Create a new repository for this project called javascript-challenge. Do not add this homework to an existing repository.
+The editor wants to run a series of feature stories about the health risks facing particular demographics. She's counting on you to sniff out the first story idea by sifting through information from the U.S. Census Bureau and the Behavioral Risk Factor Surveillance System.
 
+The data set included with the assignment is based on 2014 ACS 1-year estimates: [https://factfinder.census.gov/faces/nav/jsf/pages/searchresults.xhtml](https://factfinder.census.gov/faces/nav/jsf/pages/searchresults.xhtml), but you are free to investigate a different data set. The current data set incldes data on rates of income, obesity, poverty, etc. by state. MOE stands for "margin of error."
 
-Clone the new repository to your computer.
+### Before You Begin
 
+1. Create a new repository for this project called `D3-challenge`. **Do not add this homework to an existing repository**.
 
-Inside your local git repository, create a directory for the Javascript challenge. Use the folder names to correspond to the challenges: UFO-level-1 and UFO-level-2.
+2. Clone the new repository to your computer.
 
+3. Inside your local git repository, create a directory for the D3 challenge. Use the folder name to correspond to the challenge: **D3_data_journalism**.
 
-Add your html files to this folder as well as your static folder containing your javascript. This will be the main script to run for analysis.
+4. This homeworks utilizes both **html** and **Javascript** so be sure to add all the necessary files. These will be the main files to run for analysis.
 
+5. Push the above changes to GitHub or GitLab.
 
-Push the above changes to GitHub or GitLab.
+## Your Task
 
+### Core Assignment: D3 Dabbler (Required Assignment)
 
+![4-scatter](Images/4-scatter.jpg)
 
-Level 1: Automatic Table and Date Search (Required)
+You need to create a scatter plot between two of the data variables such as `Healthcare vs. Poverty` or `Smokers vs. Age`.
 
+Using the D3 techniques we taught you in class, create a scatter plot that represents each state with circle elements. You'll code this graphic in the `app.js` file of your homework directory—make sure you pull in the data from `data.csv` by using the `d3.csv` function. Your scatter plot should ultimately appear like the image at the top of this section.
 
-Create a basic HTML web page or use the index.html file provided (we recommend building your own custom page!).
+* Include state abbreviations in the circles.
 
+* Create and situate your axes and labels to the left and bottom of the chart.
 
-Using the UFO dataset provided in the form of an array of JavaScript objects, write code that appends a table to your web page and then adds new rows of data for each UFO sighting.
+* Note: You'll need to use `python -m http.server` to run the visualization. This will host the page at `localhost:8000` in your web browser.
 
-Make sure you have a column for date/time, city, state, country, shape, and comment at the very least.
+- - -
 
+### Bonus: Impress the Boss (Optional Assignment)
 
+Why make a static graphic when D3 lets you interact with your data?
 
-Use a date form in your HTML document and write JavaScript code that will listen for events and search through the date/time column to find rows that match user input.
+![7-animated-scatter](Images/7-animated-scatter.gif)
 
+#### 1. More Data, More Dynamics
 
+You're going to include more demographics and more risk factors. Place additional labels in your scatter plot and give them click events so that your users can decide which data to display. Animate the transitions for your circles' locations as well as the range of your axes. Do this for two risk factors for each axis. Or, for an extreme challenge, create three for each axis.
 
-Level 2: Multiple Search Categories (Optional)
+* Hint: Try binding all of the CSV data to your circles. This will let you easily determine their x or y values when you click the labels.
 
+#### 2. Incorporate d3-tip
 
-Complete all of Level 1 criteria.
+While the ticks on the axes allow us to infer approximate values for each circle, it's impossible to determine the true value without adding another layer of data. Enter tooltips: developers can implement these in their D3 graphics to reveal a specific element's data when the user hovers their cursor over the element. Add tooltips to your circles and display each tooltip with the data that the user has selected. Use the `d3-tip.js` plugin developed by [Justin Palmer](https://github.com/Caged)—we've already included this plugin in your assignment directory.
 
+![8-tooltip](Images/8-tooltip.gif)
 
-Using multiple input tags and/or select dropdowns, write JavaScript code so the user can to set multiple filters and search for UFO sightings using the following criteria based on the table columns:
+* Check out [David Gotz's example](https://bl.ocks.org/davegotz/bd54b56723c154d25eedde6504d30ad7) to see how you should implement tooltips with d3-tip.
 
-date/time
-city
-state
-country
-shape
+- - -
 
+### Assessment
 
+Your final product will be assessed on the following metrics:
 
+* Creation of a **new** repository on GitHub called `D3-Challenge` (note the kebab-case). Do not add to an already existing repo.
 
+* Completion of all steps in the core assignment
 
-Dataset
+* Coherency of scatter plot (labels, ticks)
 
-UFO Sightings Data
+* Visual attraction
 
+* Professionalism
 
-Good luck!
+**Good luck!**
 
+### Copyright
 
+Trilogy Education Services © 2019. All Rights Reserved.
